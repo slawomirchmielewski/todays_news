@@ -8,9 +8,14 @@ class NewsList extends StatelessWidget {
   final List<News> newses;
   final ScrollController scrollController;
   final VoidCallback onListEndScroll;
+  final bool scrollable;
 
-  NewsList({this.newses, this.scrollController, this.onListEndScroll})
-      : assert(newses != null);
+  NewsList({
+    this.newses,
+    this.scrollController,
+    this.onListEndScroll,
+    this.scrollable = true,
+  }) : assert(newses != null);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,9 @@ class NewsList extends StatelessWidget {
           horizontal: Dims.small,
           vertical: Dims.medium,
         ),
+        physics: scrollable == true
+            ? AlwaysScrollableScrollPhysics()
+            : NeverScrollableScrollPhysics(),
         itemCount: newses.length,
         itemBuilder: (context, index) => NewsListTile(
           news: newses[index],
