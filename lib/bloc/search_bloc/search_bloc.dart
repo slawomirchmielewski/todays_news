@@ -5,21 +5,24 @@ import 'package:equatable/equatable.dart';
 import 'package:todays_news/model/news.dart';
 import 'package:todays_news/repository/news_repository.dart';
 import 'package:meta/meta.dart';
-import 'package:todays_news/utils/date_converter.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:todays_news/repository/settings_repository.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, List<News>> {
   NewsRepository _newsRepository;
+  SettingsRepository _settingsRepository;
 
-  SearchBloc({@required NewsRepository newsRepository})
+  SearchBloc(
+      {@required NewsRepository newsRepository,
+      @required SettingsRepository settingsRepository})
       : _newsRepository = newsRepository,
+        _settingsRepository = settingsRepository,
         assert(newsRepository != null),
         super([]);
 
-  /// List of news
   List<News> _newses = [];
 
   @override
@@ -38,16 +41,20 @@ class SearchBloc extends Bloc<SearchEvent, List<News>> {
   ) async* {
     if (event is SearchEventQueryNews) {
       yield* _mapSearchEventQueryNewsToState(event.query);
+    } else if (event is SearchEventClearList) {
+      yield* _mapSearchEventClearListToState();
     }
   }
 
   Stream<List<News>> _mapSearchEventQueryNewsToState(String query) async* {
     try {
       if (query != "") {
-        String todayDate = DateConverter.convertDateToString(DateTime.now());
+        String language = await _settingsRepository.getNewsLanguage();
 
-        _newses = await _newsRepository.fetchNews(
-            q: query, page: 1.toString(), data: todayDate);
+        _newses =
+            await _newsRepository.searchNews(query: query, language: language);
+
+        _newses = _newses.where((news) => news.image != "None").toList();
 
         yield _newses;
       } else {
@@ -56,5 +63,12 @@ class SearchBloc extends Bloc<SearchEvent, List<News>> {
     } catch (e) {
       print(e);
     }
+  }
+
+  Stream<List<News>> _mapSearchEventClearListToState() async* {
+    _newses = [];
+
+    print("hello");
+    yield List.from(_newses);
   }
 }

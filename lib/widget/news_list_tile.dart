@@ -14,6 +14,7 @@ class NewsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(news.image);
     return GestureDetector(
       onTap: onPressed,
       child: Column(
@@ -25,11 +26,11 @@ class NewsListTile extends StatelessWidget {
               Container(
                 height: 100,
                 width: 100,
-                decoration: news.urlToImage != null
+                decoration: news.image != null
                     ? BoxDecoration(
                         image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(news.urlToImage),
+                        image: CachedNetworkImageProvider(news.image),
                       ))
                     : BoxDecoration(color: Colors.blueGrey),
               ),
@@ -38,12 +39,18 @@ class NewsListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: Dims.medium),
-                      child: Text(
-                        "Source: ${news.source.name}",
-                        style: Theme.of(context).textTheme.overline,
-                      ),
-                    ),
+                        padding: const EdgeInsets.only(left: Dims.medium),
+                        child: Wrap(
+                            children: news.category
+                                .map((e) => Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: Dims.small),
+                                      child: Text(e.toUpperCase(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .overline),
+                                    ))
+                                .toList())),
                     ConstrainedBox(
                       constraints: BoxConstraints(maxHeight: 100),
                       child: ListTile(

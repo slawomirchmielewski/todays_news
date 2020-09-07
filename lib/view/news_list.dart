@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todays_news/config/dims.dart';
 import 'package:todays_news/model/news.dart';
 import 'package:todays_news/screen/news_screen.dart';
-import 'package:todays_news/widget/news_list_tile.dart';
+import 'package:todays_news/widget/news_card.dart';
 
 class NewsList extends StatelessWidget {
   final List<News> newses;
@@ -27,15 +27,16 @@ class NewsList extends StatelessWidget {
         return false;
       },
       child: ListView.builder(
+        shrinkWrap: true,
         padding: const EdgeInsets.symmetric(
           horizontal: Dims.small,
-          vertical: Dims.medium,
+          vertical: Dims.small,
         ),
         physics: scrollable == true
             ? AlwaysScrollableScrollPhysics()
             : NeverScrollableScrollPhysics(),
         itemCount: newses.length,
-        itemBuilder: (context, index) => NewsListTile(
+        itemBuilder: (context, index) => NewsCard(
           news: newses[index],
           onPressed: () {
             Navigator.of(context).push(

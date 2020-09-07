@@ -16,3 +16,5 @@ class SearchEventQueryNews extends SearchEvent {
   @override
   String toString() => "Query news {$query}";
 }
+
+class SearchEventClearList extends SearchEvent {}
