@@ -12,7 +12,7 @@ class AboutScreen extends StatelessWidget {
           children: [
             ListTile(
               leading: Icon(Icons.account_circle),
-              title: Text("Author"),
+              title: Text("Developer"),
               subtitle: Text("Slawomir Chmielewski"),
             ),
             ListTile(
