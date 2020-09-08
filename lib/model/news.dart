@@ -1,56 +1,61 @@
 import 'package:equatable/equatable.dart';
 
+///
+/// News class
+///
 class News extends Equatable {
-  final Source source;
+  /// News Id
+  final String id;
+
+  /// News title
   final String title;
+
+  /// News description
   final String description;
-  final String urlToImage;
-  final String author;
+
+  /// Url to news website
   final String url;
-  final String publishedAt;
-  final String content;
+
+  /// Author of the article
+  final String author;
+
+  /// Cover image for the news
+  final String image;
+
+  /// The language the new is in
+  final String language;
+
+  /// Categories the news is in
+  final List<String> category;
+
+  /// Date and time the news was published
+  final String published;
 
   News({
-    this.source,
+    this.id,
     this.title,
     this.description,
-    this.urlToImage,
+    this.image,
     this.url,
     this.author,
-    this.content,
-    this.publishedAt,
+    this.language,
+    this.category,
+    this.published,
   });
 
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
-      source: json["source"] != null ? Source.fromJson(json["source"]) : null,
+      id: json["id"],
       title: json["title"],
       description: json["description"],
-      urlToImage: json["urlToImage"],
+      image: json["image"],
       url: json["url"],
+      category: List<String>.from(json["category"] as List),
+      language: json["language"],
       author: json["author"],
-      publishedAt: json["publishedAt"],
-      content: json["content"],
+      published: json["published"],
     );
   }
   @override
-  List<Object> get props => [source, title, description, urlToImage];
-}
-
-class Source extends Equatable {
-  final String id;
-  final String name;
-
-  Source({this.id, this.name});
-
-  factory Source.fromJson(Map<String, dynamic> json) {
-    return Source(id: json["id"], name: json["name"]);
-  }
-
-  Source copyWith(String id, String name) {
-    return Source(id: id ?? this.id, name: name ?? this.name);
-  }
-
-  @override
-  List<Object> get props => [id, name];
+  List<Object> get props => [id, title, description, image];
 }

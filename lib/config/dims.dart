@@ -26,4 +26,6 @@ class Dims {
 
   /// baseline * 6 = 48
   static const double xxxlarge = _baseline * 6;
+
+  static const double radius = medium;
 }

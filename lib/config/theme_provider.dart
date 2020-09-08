@@ -35,9 +35,8 @@ class ThemeProvider {
         dividerTheme: DividerThemeData(space: 32, thickness: 1),
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(15),
-              topLeft: Radius.circular(15),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
             ),
           ),
         ));
@@ -70,9 +69,8 @@ class ThemeProvider {
         dividerTheme: DividerThemeData(space: 32, thickness: 1),
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(15),
-              topLeft: Radius.circular(15),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
             ),
           ),
         ));

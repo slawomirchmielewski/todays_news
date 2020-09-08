@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todays_news/bloc/simple_bloc_observer.dart';
 import 'package:todays_news/repository/news_repository.dart';
+import 'package:todays_news/repository/settings_repository.dart';
 import 'package:todays_news/todays_news.dart';
 
 void main() {
@@ -16,6 +17,9 @@ void main() {
       providers: [
         RepositoryProvider<NewsRepository>(
           create: (context) => NewsRepository(),
+        ),
+        RepositoryProvider<SettingsRepository>(
+          create: (context) => SettingsRepository(),
         )
       ],
       child: TodaysNews(),

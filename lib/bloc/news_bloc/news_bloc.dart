@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todays_news/model/news.dart';
 import 'package:todays_news/repository/news_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:collection/collection.dart';
+import 'package:todays_news/repository/settings_repository.dart';
 
 part 'news_event.dart';
-part 'news_state.dart';
 
 ///
 /// Representing news bloc where are the news are getting from the
@@ -18,14 +18,18 @@ part 'news_state.dart';
 ///
 class NewsBloc extends Bloc<NewsEvent, List<News>> {
   NewsRepository _newsRepository;
+  SettingsRepository _settingsRepository;
 
-  NewsBloc({@required NewsRepository newsRepository})
+  NewsBloc(
+      {@required NewsRepository newsRepository,
+      @required SettingsRepository settingsRepository})
       : _newsRepository = newsRepository,
+        _settingsRepository = settingsRepository,
+        assert(newsRepository != null),
         super(null);
 
-  List<News> _newses;
-
-  int _page = 1;
+  /// List of news
+  List<News> _newses = [];
 
   @override
   Stream<List<News>> mapEventToState(
@@ -35,65 +39,42 @@ class NewsBloc extends Bloc<NewsEvent, List<News>> {
       yield* _mapNewsEventFetchNewsToState();
     } else if (event is NewsEventRefreshNews) {
       yield* _mapNewsEventRefreshNewsToState();
+    } else if (event is NewsEventSortAscendingByData) {
+      yield* _mapNewsEventSortAscendingByDataToState();
+    } else if (event is NewsEventSortDescendingByData) {
+      yield* _mapNewsEventSortDescendingByDataToState();
     }
   }
 
   Stream<List<News>> _mapNewsEventFetchNewsToState() async* {
-    try {
-      String todayDate =
-          _convertDateToString(DateTime.now().add(Duration(days: -1)));
-
-      var response = await _newsRepository.fetchNews(
-          page: _page.toString(), data: todayDate);
-
-      if (response.statusCode == 200) {
-        var result = jsonDecode(response.body)["articles"] as List;
-
-        List<News> newses = result.map((e) => News.fromJson(e)).toList();
-        _newses = List.from(newses);
-      } else {
-        print(response.statusCode);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    yield _newses;
+    yield await getNews();
   }
 
   Stream<List<News>> _mapNewsEventRefreshNewsToState() async* {
-    _page++;
+    yield await getNews();
+  }
 
+  Future<List<News>> getNews() async {
     try {
-      String todayDate = _convertDateToString(DateTime.now());
+      String language = await _settingsRepository.getNewsLanguage();
 
-      var response = await _newsRepository.fetchNews(
-          page: _page.toString(), data: todayDate);
-
-      if (response.statusCode == 200) {
-        var result = jsonDecode(response.body)["articles"] as List;
-
-        List<News> newses = result.map((e) => News.fromJson(e)).toList();
-        for (var n in newses) {
-          _newses.add(n);
-        }
-      } else {
-        print(response.statusCode);
-      }
+      _newses = await _newsRepository.fetchNews(language: language);
     } catch (e) {
       print(e);
     }
+    if (_newses != null || _newses.length != 0) {
+      _newses = _newses.where((news) => news.image != "None").toList();
+    }
+    return _newses;
+  }
 
+  Stream<List<News>> _mapNewsEventSortAscendingByDataToState() async* {
+    _newses.sort((a, b) => compareNatural(a.author, b.author));
     yield List.from(_newses);
   }
 
-  String _convertDateToString(DateTime dateTime) {
-    String year = dateTime.year.toString().padLeft(4, "0");
-    String month = dateTime.month.toString().padLeft(2, "0");
-    String day = dateTime.day.toString().padLeft(2, "0");
-
-    print("$year-$month-$day");
-
-    return "$year-$month-$day";
+  Stream<List<News>> _mapNewsEventSortDescendingByDataToState() async* {
+    _newses.sort((a, b) => compareNatural(b.author, a.author));
+    yield List.from(_newses);
   }
 }
