@@ -4,6 +4,11 @@ import 'package:todays_news/bloc/settings_bloc/settings_bloc.dart';
 import 'package:todays_news/utils/languages.dart';
 import 'package:todays_news/utils/theme_converter.dart';
 
+///
+/// Representing app setting screen
+///
+/// Containing the news language and app theme settings
+///
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
                         children: [
                           RadioListTile(
                               title: Text("Light"),
-                              value: "light",
+                              value: "Light",
                               groupValue:
                                   ThemeConverter.themeToString(state.themeMode),
                               onChanged: (value) {
@@ -39,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
                               }),
                           RadioListTile(
                               title: Text("Dark"),
-                              value: "dark",
+                              value: "Dark",
                               groupValue:
                                   ThemeConverter.themeToString(state.themeMode),
                               onChanged: (value) {
@@ -50,7 +55,7 @@ class SettingsScreen extends StatelessWidget {
                               }),
                           RadioListTile(
                               title: Text("System"),
-                              value: "system",
+                              value: "System",
                               groupValue:
                                   ThemeConverter.themeToString(state.themeMode),
                               onChanged: (value) {
@@ -68,7 +73,9 @@ class SettingsScreen extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.language),
                 title: Text("News Language"),
-                subtitle: Text(state.newsLanguage),
+                subtitle: Text(Languages.getLanguages().keys.firstWhere(
+                    (k) => Languages.getLanguages()[k] == state.newsLanguage,
+                    orElse: () => null)),
                 onTap: () {
                   showDialog(
                       context: context,

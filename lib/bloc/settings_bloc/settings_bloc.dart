@@ -10,14 +10,21 @@ import 'package:todays_news/utils/theme_converter.dart';
 part 'settings_event.dart';
 part 'settings_state.dart';
 
+///
+/// Representing application settings
+///
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
+  /// Provide settings repository
   SettingsRepository _settingsRepository;
 
   SettingsBloc({@required SettingsRepository settingsRepository})
       : _settingsRepository = settingsRepository,
         super(SettingsInitial());
 
+  // Empty string representing language
   String _newLanguage;
+
+  // Empty theme mode
   ThemeMode _theme;
 
   @override

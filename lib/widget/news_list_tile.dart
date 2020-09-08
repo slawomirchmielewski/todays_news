@@ -3,8 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:todays_news/config/dims.dart';
 import 'package:todays_news/model/news.dart';
 
+///
+/// Representing news list tile
+/// mainly used in the list view to represent single news
+///
+///
+/// taking [news] to display it data
+/// [onPressed] callback represent action after pressed the tile
+///
 class NewsListTile extends StatelessWidget {
+  /// Single news
   final News news;
+
+  /// On tile pressed callback
   final VoidCallback onPressed;
 
   NewsListTile({

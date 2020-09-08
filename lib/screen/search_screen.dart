@@ -7,6 +7,10 @@ import 'package:todays_news/screen/news_screen.dart';
 import 'package:todays_news/widget/news_list_tile.dart';
 import 'package:todays_news/widget/search_bar.dart';
 
+///
+/// Representing the search screen where user can
+/// search older news
+///
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key key}) : super(key: key);
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:todays_news/config/dims.dart';
 import 'package:todays_news/model/news.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+///
+/// Representing single news
+/// The screen is showing the web view from the news url
+///
 class NewsScreen extends StatefulWidget {
   final News news;
 

@@ -1,16 +1,34 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 
+///
+/// News class
+///
 class News extends Equatable {
+  /// News Id
   final String id;
+
+  /// News title
   final String title;
+
+  /// News description
   final String description;
+
+  /// Url to news website
   final String url;
+
+  /// Author of the article
   final String author;
+
+  /// Cover image for the news
   final String image;
+
+  /// The language the new is in
   final String language;
+
+  /// Categories the news is in
   final List<String> category;
+
+  /// Date and time the news was published
   final String published;
 
   News({

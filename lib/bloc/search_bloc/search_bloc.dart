@@ -11,8 +11,14 @@ import 'package:todays_news/repository/settings_repository.dart';
 part 'search_event.dart';
 part 'search_state.dart';
 
+///
+/// Representing search functionality for the application
+///
 class SearchBloc extends Bloc<SearchEvent, List<News>> {
+  /// Provide news from the api
   NewsRepository _newsRepository;
+
+  /// Provide app settings
   SettingsRepository _settingsRepository;
 
   SearchBloc(
@@ -23,6 +29,7 @@ class SearchBloc extends Bloc<SearchEvent, List<News>> {
         assert(newsRepository != null),
         super([]);
 
+  // Create empty list of newses
   List<News> _newses = [];
 
   @override

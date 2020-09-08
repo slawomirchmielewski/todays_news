@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
+///
+/// Helper class to convert the ThemeMode to String and reverse
+///
 class ThemeConverter {
+  static const _light = "Light";
+  static const _dark = "Dark";
+  static const _system = "System";
+
   static String themeToString(ThemeMode themeMode) {
     String theme;
 
     switch (themeMode) {
       case ThemeMode.light:
-        theme = "light";
+        theme = _light;
         break;
       case ThemeMode.system:
-        theme = "system";
+        theme = _system;
         break;
       case ThemeMode.dark:
-        theme = "dark";
+        theme = _dark;
         break;
     }
 
@@ -23,13 +30,13 @@ class ThemeConverter {
     ThemeMode themeMode;
 
     switch (themeRef) {
-      case "dark":
+      case _dark:
         themeMode = ThemeMode.dark;
         break;
-      case "light":
+      case _light:
         themeMode = ThemeMode.light;
         break;
-      case "system":
+      case _system:
         themeMode = ThemeMode.system;
         break;
       default:

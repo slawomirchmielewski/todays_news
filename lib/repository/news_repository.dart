@@ -1,12 +1,21 @@
 import 'dart:convert';
 
+import 'package:api_keys/api_keys.dart';
 import 'package:http/http.dart' as http;
 import 'package:todays_news/model/news.dart';
 
+///
+/// Represent class to retrieve the newses from the API
+///
 class NewsRepository {
+  /// News base url
   final _newsBaseUrl = "https://api.currentsapi.services/v1/latest-news";
+
+  /// Search news base url
   final _searchBaseUrl = "https://api.currentsapi.services/v1/search";
-  final _key = "Nkf5Nf49H3cqu0NMrprQAxSZb1aqwi0l6GdfDdAAMLLf6NfX";
+
+  /// API key reference
+  final _key = ApiKeys().getNewsApiKey();
 
   Future<List<News>> fetchNews({String language}) async {
     try {

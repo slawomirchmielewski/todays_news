@@ -9,7 +9,6 @@ import 'package:collection/collection.dart';
 import 'package:todays_news/repository/settings_repository.dart';
 
 part 'news_event.dart';
-part 'news_state.dart';
 
 ///
 /// Representing news bloc where are the news are getting from the
@@ -30,7 +29,7 @@ class NewsBloc extends Bloc<NewsEvent, List<News>> {
         super(null);
 
   /// List of news
-  List<News> _newses;
+  List<News> _newses = [];
 
   @override
   Stream<List<News>> mapEventToState(
@@ -63,9 +62,9 @@ class NewsBloc extends Bloc<NewsEvent, List<News>> {
     } catch (e) {
       print(e);
     }
-
-    _newses = _newses.where((news) => news.image != "None").toList();
-
+    if (_newses != null || _newses.length != 0) {
+      _newses = _newses.where((news) => news.image != "None").toList();
+    }
     return _newses;
   }
 

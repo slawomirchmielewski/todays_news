@@ -1,5 +1,8 @@
 part of 'settings_bloc.dart';
 
+///
+/// Representing states for the settings bloc
+///
 abstract class SettingsState extends Equatable {
   @override
   List<Object> get props => [];

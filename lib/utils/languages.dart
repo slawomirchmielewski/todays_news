@@ -1,3 +1,6 @@
+///
+/// List of languages used by the API
+///
 class Languages {
   static Map<String, String> getLanguages() => {
         "Arabic": "ar",

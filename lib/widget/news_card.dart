@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:todays_news/config/dims.dart';
 import 'package:todays_news/model/news.dart';
 
+///
+/// Representing news card
+/// mainly used in the list view to represent single news
+///
+///
+/// taking [news] to display it data
+/// [onPressed] callback represent action after pressed the tile
+///
 class NewsCard extends StatelessWidget {
   final News news;
   final VoidCallback onPressed;

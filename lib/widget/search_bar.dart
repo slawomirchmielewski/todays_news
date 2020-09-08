@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
+///
+/// Representing search bar widget
+///
+/// taking [controller] to control text behavior
+/// and [onTextChanged] to return current text valu
+///
 class SearchBar extends StatefulWidget {
+  /// Text controller
   final TextEditingController controller;
+
+  /// Return current text
   final ValueChanged<String> onTextChanged;
 
   SearchBar({

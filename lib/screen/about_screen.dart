@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+///
+/// Representing a about screen
+///
+/// Containing all the information about the app
+///
 class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

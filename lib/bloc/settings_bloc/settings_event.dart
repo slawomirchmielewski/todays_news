@@ -1,5 +1,8 @@
 part of 'settings_bloc.dart';
 
+///
+/// Representing settings event for settings bloc
+///
 abstract class SettingsEvent extends Equatable {
   @override
   List<Object> get props => [];

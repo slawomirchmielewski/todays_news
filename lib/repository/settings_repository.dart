@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todays_news/utils/theme_converter.dart';
 
+///
+/// Represent helper class to save and load settings
+/// from the shared preferences
+///
 class SettingsRepository {
   final String _languageShort = "language";
   final String _theme = "theme";
