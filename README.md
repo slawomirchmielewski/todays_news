@@ -1,6 +1,6 @@
-# todays_news
+# News
 
-daily news at tip of your finger
+Daily news at tip of your finger
 
 ## Getting Started
 
