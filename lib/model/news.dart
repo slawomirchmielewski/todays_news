@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 ///
-/// News class
+/// News model
 ///
 class News extends Equatable {
   /// News Id
@@ -45,15 +45,17 @@ class News extends Equatable {
 
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
-      id: json["id"],
-      title: json["title"],
-      description: json["description"],
+      id: json["id"] != null ? json["id"] : "",
+      title: json["title"] != null ? json["title"] : "",
+      description: json["description"] != null ? json["description"] : "",
       image: json["image"],
       url: json["url"],
-      category: List<String>.from(json["category"] as List),
-      language: json["language"],
-      author: json["author"],
-      published: json["published"],
+      category: json["category"] != null
+          ? List<String>.from(json["category"] as List)
+          : [],
+      language: json["language"] != null ? json["language"] : "",
+      author: json["author"] != null ? json["author"] : "",
+      published: json["published"] != null ? json["published"] : "",
     );
   }
   @override

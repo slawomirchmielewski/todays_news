@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// Representing a about screen
+/// Representing about screen
 ///
 /// Containing all the information about the app
 ///

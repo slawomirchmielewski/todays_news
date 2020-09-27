@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Todays News"),
+        title: Text("News"),
       ),
       body: BlocBuilder<NewsBloc, List<News>>(
         builder: (context, newses) {
